@@ -9,10 +9,12 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.common')
 
-module.exports =merge(commonConfig,{
+module.exports = merge(commonConfig, {
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].js',
+    filename: '[name]_[chunkhash:6].js',
+    chunkFilename: '[name]_[chunkhash:6].js',
+    // library: '[name]',
     // publicPath: '/dist/'
   },
   module: {

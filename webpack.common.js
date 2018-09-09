@@ -6,19 +6,13 @@ const bundleConfig = require("./bundle-config.json");
   module.exports = {
     entry: {
       app: path.resolve(__dirname, 'src', 'index.js'),
-      // vendor: [
-      //   'react',
-      //   'react-dom',
-      //   'react-router',
-      //   'react-router-dom',
-      //   'lodash'
-      // ]
-    },
-    output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: '[name]_[chunkhash:12].js',
-      chunkFilename: '[name]_[chunkhash:12].js',
-      // library: '[name]',
+      vendor: [
+        'react',
+        'react-dom',
+        'react-router',
+        'react-router-dom',
+        'lodash'
+      ]
     },
     resolve: {
       extensions: [".js", ".jsx", ".css", ".less", ".json"],
@@ -55,49 +49,36 @@ const bundleConfig = require("./bundle-config.json");
         }
       ]
     },
-    // optimization: {
-    //   splitChunks: {
-    //     chunks: 'all',
-    //     name: true,
-    //   }
-    // },
+    optimization: {
+      splitChunks: {
+        chunks: 'async', 
+        minSize: 30000,
+        maxSize: 0,
+        minChunks: 1,
+        maxAsyncRequests: 5,
+        maxInitialRequests: 3,
+        automaticNameDelimiter: '~',
+        name: true,
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true
+          }
+        }
+      }
+    },
     plugins: [
-      //  使用dll来打包第三方代码
-      new webpack.DllReferencePlugin({
-        context: __dirname,
-        manifest: require('./dist/vendors-manifest.json')
-      }),
-
-
-      // new webpack.optimize.SplitChunksPlugin({
-      //   chunks: "all",
-      //   minSize: 30000,
-      //   minChunks: 1,
-      //   maxAsyncRequests: 5,
-      //   maxInitialRequests: 3,
-      //   name: true,
-      //   cacheGroups: {
-      //     default: {
-      //       minChunks: 2,
-      //       priority: -20,
-      //       reuseExistingChunk: true,
-      //     },
-      //     vendors: {
-      //       test: /[\\/]node_modules[\\/]/,
-      //       priority: -10
-      //     }
-      //   }
-      // }),
       new HtmlWebpackPlugin({
         // 如果配置此项 需要在HTML模板中的title标签中增加   <%= htmlWebpackPlugin.options.title %>
         title: 'Webpack4',
         hash: true, //防止缓存
         template: './src/www/index.html',
         filename: 'index.html',
-        // 使用 AssetsPlugin 打包生成的 json文件
-        // bundleName: bundleConfig.vendors.js,
-        // 需要将dll 文件链接到html 中
-        vendorsName: 'vendors.dll.js',
       }),
     ],
 

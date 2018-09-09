@@ -23,6 +23,11 @@ const postcss = {
 };
 
 module.exports = merge(commonConfig, {
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name]_[chunkhash:6].js',
+    chunkFilename: '[name]_[chunkhash:6].js',
+  },
   module: {
     rules: [
       {
