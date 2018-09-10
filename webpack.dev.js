@@ -12,8 +12,8 @@ const commonConfig = require('./webpack.common')
 module.exports = merge(commonConfig, {
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name]_[chunkhash:6].js',
-    chunkFilename: '[name]_[chunkhash:6].js',
+    filename: '[name]_[chunkhash].js',
+    chunkFilename: '[name]_[chunkhash].js',
     // library: '[name]',
     // publicPath: '/dist/'
   },
@@ -34,7 +34,7 @@ module.exports = merge(commonConfig, {
             options: {
               importLoaders: 1,
               modules: true,
-              localIdentName: '[name]__[local]_[hash:base64:5]',
+              localIdentName: '[name]_[local]_[hash:base64:5]',
             },
           },
         ]
@@ -44,7 +44,14 @@ module.exports = merge(commonConfig, {
         exclude: /node_modules/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true,
+              localIdentName: '[name]_[local]_[hash:base64:5]',
+            },
+          },
           'less-loader'
         ]
       },

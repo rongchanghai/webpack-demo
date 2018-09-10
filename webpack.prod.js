@@ -25,8 +25,8 @@ const postcss = {
 module.exports = merge(commonConfig, {
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name]_[chunkhash:6].js',
-    chunkFilename: '[name]_[chunkhash:6].js',
+    filename: '[name]_[contenthash].js',
+    chunkFilename: '[name]_[contenthash].js',
   },
   module: {
     rules: [
@@ -40,7 +40,7 @@ module.exports = merge(commonConfig, {
             options: {
               importLoaders: 1,
               modules: true,
-              localIdentName: '[name]__[local]_[hash:base64:5]',
+              localIdentName: '[name]_[local]-[hash:base64:5]',
             },
           },
           postcss
@@ -55,7 +55,7 @@ module.exports = merge(commonConfig, {
             options: {
               importLoaders: 2, //指定css-loader处理前最多可以经过的loader个数   
               modules: true,
-              localIdentName: '[name]_[local]_[hash:base64:5]',
+              localIdentName: '[name]_[local]-[hash:base64:5]',
             },
           },
           postcss,
@@ -85,8 +85,8 @@ module.exports = merge(commonConfig, {
   plugins: [
     // new CleanWebpackPlugin('dist'),
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css'
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[contenthash].css'
     }),
   ]
 })
