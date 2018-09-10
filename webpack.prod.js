@@ -25,8 +25,8 @@ const postcss = {
 module.exports = merge(commonConfig, {
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name]_[chunkhash:6].js',
-    chunkFilename: '[name]_[chunkhash:6].js',
+    filename: '[name]_[contenthash:6].js',
+    chunkFilename: '[name]_[contenthash:6].js',
   },
   module: {
     rules: [
@@ -85,8 +85,8 @@ module.exports = merge(commonConfig, {
   plugins: [
     // new CleanWebpackPlugin('dist'),
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css'
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[contenthash].css'
     }),
   ]
 })
