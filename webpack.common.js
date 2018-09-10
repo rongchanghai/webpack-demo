@@ -16,8 +16,8 @@ const bundleConfig = require("./bundle-config.json");
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name]_[chunkhash:12].js',
-      chunkFilename: '[name]_[chunkhash:12].js',
+      filename: '[name]_[contenthash:12].js',
+      chunkFilename: '[name]_[contenthash:12].js',
       // library: '[name]',
     },
     resolve: {

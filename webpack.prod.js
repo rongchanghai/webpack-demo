@@ -80,8 +80,8 @@ module.exports = merge(commonConfig, {
   plugins: [
     // new CleanWebpackPlugin('dist'),
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css'
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[contenthash].css'
     }),
   ]
 })

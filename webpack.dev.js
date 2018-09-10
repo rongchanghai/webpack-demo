@@ -10,11 +10,11 @@ const merge = require('webpack-merge');
 const commonConfig = require('./webpack.common')
 
 module.exports =merge(commonConfig,{
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].js',
-    // publicPath: '/dist/'
-  },
+  // output: {
+  //   path: path.resolve(__dirname, 'dist'),
+  //   filename: '[name].[contenthash].js',
+  //   // publicPath: '/dist/'
+  // },
   module: {
     rules: [
       {
