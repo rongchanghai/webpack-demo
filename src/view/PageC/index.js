@@ -1,8 +1,8 @@
 import React from 'react';
 import TodoApp from '$component/TodoApp';
 
-
-export default class PageB extends React.Component {
+import styles from './styles.css';
+export default class PageC extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ export default class PageB extends React.Component {
 
     return (
       <div  style={{position: "absolute"}}>
-        <div className="b">pageB</div>
+        <div className={styles.pageC}>pageC</div>
         <TodoApp/>
       </div>
     )

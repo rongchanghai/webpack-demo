@@ -1,9 +1,11 @@
 import React from 'react';
+import TodoApp from '$component/TodoApp';
+
 export default class PageA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      com1:'com11'
+      com1:'com111'
     }
   }
 
@@ -18,6 +20,7 @@ export default class PageA extends React.Component {
       <div style={{position: "absolute"}}>
         <div className="b">pageAA</div>
         <button onClick={this.clickBtn}>click this</button>
+        <TodoApp/>
       </div>
     )
   }
