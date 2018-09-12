@@ -5,7 +5,6 @@ Webpack的工作方式是：把你的项目当做一个整体，通过一个给�
 
 # Webpack4升级
 
-> webpack4官方已经于近日升级到了V4.5的稳定版本，对应的一些必备插件(webpack-contrib)也陆续完成了更新支持，笔者在第一时间完成了项目由V3到V4的迁移，在此记录一下升级过程中遇到的种种问题和对应的解决手段，方便后续入坑者及时查阅，减少重复工作。
 
 ## 一、Node版本依赖重新调整
 
@@ -98,9 +97,9 @@ module.exports = {
 
 > 1. commonchunk配置项被彻底去掉，之前需要通过配置两次new webpack.optimize.CommonsChunkPlugin来分别获取vendor和manifest的通用chunk方式已经做了整合，** 直接在optimization中配置runtimeChunk和splitChunks即可 ** ，提取功能也更为强大，具体配置见：[splitChunks](https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks)
 
->1. runtimeChunk可以配置成true，single或者对象，用自动计算当前构建的一些基础chunk信息，类似之前版本中的manifest信息获取方式。
+> 2. runtimeChunk可以配置成true，single或者对象，用自动计算当前构建的一些基础chunk信息，类似之前版本中的manifest信息获取方式。
 
->1. webpack.optimize.UglifyJsPlugin现在也不需要了，只需要使用optimization.minimize为true就行，production mode下面自动为true，当然如果想使用第三方的压缩插件也可以在optimization.minimizer的数组列表中进行配置
+> 3. webpack.optimize.UglifyJsPlugin现在也不需要了，只需要使用optimization.minimize为true就行，production mode下面自动为true，当然如果想使用第三方的压缩插件也可以在optimization.minimizer的数组列表中进行配置
 
 ## 四、ExtractTextWebpackPlugin调整，建议选用新的CSS文件提取插件mini-css-extract-plugin
 
@@ -214,7 +213,9 @@ module.exports = {
 };
 ```
 ## 输出(output)
-“__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录
+`__dirname` 是node.js中的一个全局变量，它指向当前执行脚本所在的目录
+
+[path.resolve方法用于将相对路径转为绝对路径。](http://javascript.ruanyifeng.com/nodejs/path.html#toc1)
 
 ```
 module.exports = {
@@ -238,19 +239,20 @@ module: {
             use: ['babel-loader']
         },
         {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: true,
-              localIdentName: '[name]__[local]_[hash:base64:5]',
-            },
-          }
-        ]
+            test: /\.css$/, // 必须满足的条件
+            // exclude: /node_modules/,  //  表示哪些目录中的文件不要进行 loader处理
+            // include: /src/,  //  表示哪些目录中的文件需要进行loader处理
+            use: [
+              'style-loader',
+              {
+                loader: 'css-loader',
+                options: {
+                  importLoaders: 1,
+                  modules: true,
+                  localIdentName: '[name]__[local]_[hash:base64:5]',
+                },
+              }
+            ]
       },
     ]
 }

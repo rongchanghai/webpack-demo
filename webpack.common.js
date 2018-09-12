@@ -33,6 +33,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
+        include: /src/,
         use: ['babel-loader']
       },
       {
@@ -56,6 +57,7 @@ module.exports = {
     ]
   },
   optimization: {
+    minimize: true,
     // 采用splitChunks提取出entry chunk的chunk Group
     splitChunks: {
       cacheGroups: {
@@ -65,18 +67,24 @@ module.exports = {
           name: 'commons',
           // minSize: 30000,
           // minChunks: 3,
-          chunks: 'initial',
+          chunks: 'all',
           priority: -1,
           reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
-        }
+        },
+        // styles: {			
+        //   name: 'styles',
+        //   test: /\.less|css$/,
+        //   chunks: 'all',	// merge all the css chunk to one file
+        //   enforce: true
+        // }
       }
     },
     // 为每个入口提取出webpack runtime模块
     // runtimeChunk: true,
     // 等价于
-    // runtimeChunk: {
-    //   name: 'runtime'
-    // }
+    runtimeChunk: {
+      name: 'runtime'
+    }
   },
   plugins: [
     //  使用dll来打包第三方代码

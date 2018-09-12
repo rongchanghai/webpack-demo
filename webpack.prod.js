@@ -6,10 +6,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const commonConfig = require('./webpack.common')
-
+console.log(path.resolve(__dirname, 'dist'));
+console.log(__dirname);
 // 自动补齐各浏览器前缀
 const postcss = {
   loader: 'postcss-loader',
@@ -77,11 +79,16 @@ module.exports = merge(commonConfig, {
       }
     ]
   },
+  optimization: {
+    minimizer: [
+      new OptimizeCSSAssetsPlugin({})  // 压缩css 代码
+    ]
+  },
   plugins: [
     // new CleanWebpackPlugin('dist'),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
-      chunkFilename: '[id].[contenthash].css'
+      // chunkFilename: '[id].[contenthash].css'
     }),
   ]
 })
