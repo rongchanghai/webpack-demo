@@ -332,11 +332,11 @@ entry: {
 }
 
 new webpack.optimize.CommonsChunkPlugin({
-  name: "vender",
   // ( 公共chunk(commnons chunk) 的名称)
+  name: "vender",
 
+  // 起一个名称
   filename: "commons.js",
-  // ( 公共chunk 的文件名)
 
    minChunks: 3,
   // (模块必须被3个 入口chunk 共享)
