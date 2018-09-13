@@ -58,41 +58,41 @@ module.exports = {
     ]
   },
   optimization: {
-    minimize: true,
-    // 采用splitChunks提取出entry chunk的chunk Group
-    splitChunks: {
-      cacheGroups: {
-        // 处理入口chunk
-        commons: {
-          test: /[\\/]src[\\/]component[\\/]/,
-          name: 'commons',
-          // minSize: 30000,
-          // minChunks: 3,
-          chunks: 'all',
-          priority: -1,
-          reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
-        },
-        // styles: {			
-        //   name: 'styles',
-        //   test: /\.less|css$/,
-        //   chunks: 'all',	// merge all the css chunk to one file
-        //   enforce: true
-        // }
-      }
-    },
+    // minimize: true,
+    // // 采用splitChunks提取出entry chunk的chunk Group
+    // splitChunks: {
+    //   cacheGroups: {
+    //     // 处理入口chunk
+    //     commons: {
+    //       test: /[\\/]src[\\/]component[\\/]/,
+    //       name: 'commons',
+    //       // minSize: 30000,
+    //       // minChunks: 3,
+    //       chunks: 'all',
+    //       priority: -1,
+    //       reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
+    //     },
+    //     // styles: {			
+    //     //   name: 'styles',
+    //     //   test: /\.less|css$/,
+    //     //   chunks: 'all',	// merge all the css chunk to one file
+    //     //   enforce: true
+    //     // }
+    //   }
+    // },
     // 为每个入口提取出webpack runtime模块
     // runtimeChunk: true,
     // 等价于
-    runtimeChunk: {
-      name: 'runtime'
-    }
+    // runtimeChunk: {
+    //   name: 'runtime'
+    // }
   },
   plugins: [
     //  使用dll来打包第三方代码
-    new webpack.DllReferencePlugin({
-      context: __dirname,
-      manifest: require('./dist/vendors-manifest.json')
-    }),
+    // new webpack.DllReferencePlugin({
+    //   context: __dirname,
+    //   manifest: require('./dist/vendors-manifest.json')
+    // }),
     new HtmlWebpackPlugin({
       // 如果配置此项 需要在HTML模板中的title标签中增加   <%= htmlWebpackPlugin.options.title %>
       title: 'Webpack4',
@@ -102,7 +102,7 @@ module.exports = {
       // 使用 AssetsPlugin 打包生成的 json文件
       // bundleName: bundleConfig.vendors.js,
       // 需要将dll 文件链接到html 中
-      vendorsName: 'vendors.dll.js',
+      // vendorsName: 'vendors.dll.js',
     }),
   ],
 
