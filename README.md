@@ -60,9 +60,7 @@ webpack一直以来最饱受诟病的就是其配置门槛极高，配置内容�
 ```javascript
 module.exports = {
   optimization: {
-    runtimeChunk: {
-      name: 'manifest'
-    },
+    // runtimeChunk: true, //通过设置 optimization.runtimeChunk: true 来为每一个入口默认添加一个只包含 runtime 的 chunk。
     minimizer: true, // [new UglifyJsPlugin({...})]
     splitChunks:{
       chunks: 'async',
@@ -72,6 +70,7 @@ module.exports = {
       maxInitialRequests: 3,
       name: false,
       cacheGroups: {
+        default:false, // 禁用默认
         vendor: {
           name: 'vendor',
           chunks: 'initial',
@@ -97,7 +96,7 @@ module.exports = {
 
 > 1. commonchunk配置项被彻底去掉，之前需要通过配置两次new webpack.optimize.CommonsChunkPlugin来分别获取vendor和manifest的通用chunk方式已经做了整合，** 直接在optimization中配置runtimeChunk和splitChunks即可 ** ，提取功能也更为强大，具体配置见：[splitChunks](https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks)
 
-> 2. runtimeChunk可以配置成true，single或者对象，用自动计算当前构建的一些基础chunk信息，类似之前版本中的manifest信息获取方式。
+> 2. runtimeChunk可以配置成true，single或者对象，用自动计算当前构建的一些基础chunk信息，类似之前版本中的manifest信息获取方式。runtimeChunk: true 来为每一个入口默认添加一个只包含 runtime 的 chunk。
 
 > 3. webpack.optimize.UglifyJsPlugin现在也不需要了，只需要使用optimization.minimize为true就行，production mode下面自动为true，当然如果想使用第三方的压缩插件也可以在optimization.minimizer的数组列表中进行配置
 
@@ -240,8 +239,14 @@ module: {
         },
         {
             test: /\.css$/, // 必须满足的条件
-            // exclude: /node_modules/,  //  表示哪些目录中的文件不要进行 loader处理
-            // include: /src/,  //  表示哪些目录中的文件需要进行loader处理
+            // 可以是正则表达式，可以是绝对路径的字符串，还可以是个函数，数组
+            // exclude: path.resolve(__dirname,'node_modules'),  //  表示哪些目录中的文件不要进行 loader处理
+            // include: path.resolve(__dirname,'src'),  //  表示哪些目录中的文件需要进行loader处理
+            // 最佳实践：
+            // - 只在 test 和 文件名匹配 中使用正则表达式
+            // - 在 include 和 exclude 中使用绝对路径数组
+            // - 尽量避免 exclude，更倾向于使用 include
+
             use: [
               'style-loader',
               {
@@ -396,6 +401,7 @@ module.exports = {
 
 ```
 cacheGroups: {
+    default:false,
     commons: {
         name: "commons",
         chunks: "initial",

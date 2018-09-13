@@ -32,8 +32,10 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        include: /src/,
+        // 可以是正则表达式，可以是绝对路径的字符串，还可以是个函数，数组
+        exclude: path.resolve(__dirname, 'node_modules'),  //  表示哪些目录中的文件不要进行 loader处理
+        include: path.resolve(__dirname, 'src'),
+        // include: /src/,
         use: ['babel-loader']
       },
       {
@@ -47,7 +49,6 @@ module.exports = {
               limit: 10000
             }
           },
-          'file-loader',
         ]
       },
       {

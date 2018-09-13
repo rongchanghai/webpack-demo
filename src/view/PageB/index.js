@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoApp from '$component/TodoApp';
-
+import img from './15.jpg';
+import imgBig from './65.jpg'
 
 export default class PageB extends React.Component {
   constructor(props) {
@@ -18,6 +19,8 @@ export default class PageB extends React.Component {
     return (
       <div  style={{position: "absolute"}}>
         <div className="b">pageB</div>
+        <img src={img} alt=""/>
+        <img src={imgBig} alt=""/>
         <TodoApp/>
       </div>
     )
