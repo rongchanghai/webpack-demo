@@ -369,12 +369,12 @@ module.exports = {
   //...
   optimization: {
     splitChunks: {
-      chunks: 'async', // chunks: 表示显示块的范围，有三个可选值：initial(初始块)、async(按需加载块)、all(全部块)，默认为all
-      minSize: 30000, // minSize: 表示在压缩前的最小模块大小，默认为0
-      maxSize: 0,  //
+      chunks: 'async', // chunks: 表示显示块的范围，有三个可选值：initial(初始块)、async(按需加载块)、all(全部块)，默认为async
+      minSize: 30000, // minSize: 表示在压缩前的最小模块大小
+      maxSize: 0,  // 表示文件在压缩前的最大大小，默认为 0，表示不限制最大大小
       minChunks: 1, // 表示被引用次数，默认为1
-      maxAsyncRequests: 5, // 最大的按需(异步)加载次数，默认为1
-      maxInitialRequests: 3,  //  最大的初始化加载次数，默认为1；
+      maxAsyncRequests: 5, // 最大的按需(异步)加载次数，默认为5
+      maxInitialRequests: 3,  //  最大的初始化加载次数，默认为3；
       automaticNameDelimiter: '~', // 默认情况下，webpack将使用块的名称和名称生成名称（例如vendors~main.js）。此选项允许您指定用于生成的名称的分隔符。
       name: true, // 拆分块的名称。提供true将基于块和缓存组密钥自动生成名称
       // 缓存组也有默认的配置；缓存组默认将node_modules中的模块拆分到一个叫做vendors的代码块中，将最少重复引用两次的模块放入default中
@@ -412,9 +412,6 @@ cacheGroups: {
 
 ```
 
-https://blog.csdn.net/qq_26733915/article/details/79458533
-
-https://juejin.im/post/5b07d02a6fb9a07aa213c9bc
 
 稳妥的方式
 ```
@@ -429,7 +426,7 @@ splitChunks: {
       priority: 1 // 该配置项是设置处理的优先级，数值越大越优先处理
     },
     commons: {
-      test: /[\\/]src[\\/]common[\\/]/,
+      test: /[\\/]src[\\/]component[\\/]/,
       name: 'commons',
       minSize: 30000,
       minChunks: 1,
@@ -446,12 +443,9 @@ splitChunks: {
 
 当然你还可以有另外一种选择，将后缀为.js且使用次数超过2次的文件提取出来，但是不建议这个做，因为这不利于持久化缓存，新增或删除文件都有可能影响到使用次数，从而导致原先的公共文件失效。
 
+####  `runtimechunk`
 
-
-
-
-
-
+https://juejin.im/post/5b07d02a6fb9a07aa213c9bc#heading-3
 
 
 
