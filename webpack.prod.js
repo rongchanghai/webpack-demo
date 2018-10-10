@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const commonConfig = require('./webpack.common');
 
 // 自动补齐各浏览器前缀
@@ -21,6 +22,10 @@ const postcss = {
     ],
   },
 };
+
+if (process.env.BUILD_TYPE === 'view') {
+  commonConfig.plugins.push(new BundleAnalyzerPlugin());
+}
 
 module.exports = merge(commonConfig, {
   module: {

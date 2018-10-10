@@ -6,7 +6,8 @@
     "scripts": {
         "build": "npm run dll && webpack --config ./webpack.prod.js  --mode production",
         "start": "webpack-dev-server --open --config ./webpack.dev.js  --mode development",
-        "dll": "webpack --config ./webpack.dll.config.js"
+        "dll": "webpack --config ./webpack.dll.config.js",
+        "build:view": "BUILD_TYPE=view  npm run build"
     },
     "keywords": [],
     "author": "",
@@ -49,6 +50,7 @@
     },
     "devDependencies": {
         "comment-require-loader": "^1.0.0",
+        "webpack-bundle-analyzer": "^3.0.2",
         "webpack-dev-server": "^3.1.7"
     }
 }
