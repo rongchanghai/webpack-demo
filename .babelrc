@@ -3,5 +3,12 @@
         "env",
         "react",
         "stage-0"
+    ],
+    "plugins": [
+        "add-module-exports",
+        "transform-decorators-legacy", ["transform-runtime", {
+            "polyfill": true,
+            "regenerator": true
+        }]
     ]
 }

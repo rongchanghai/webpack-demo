@@ -28,8 +28,10 @@ module.exports = {
         // 可以是正则表达式，可以是绝对路径的字符串，还可以是个函数，数组
         exclude: path.resolve(__dirname, 'node_modules'),  //  表示哪些目录中的文件不要进行 loader处理
         include: path.resolve(__dirname, 'src'),
-        // include: /src/,
-        use: ['babel-loader']
+        use: [
+          'babel-loader',
+          'lazyload-loader'
+        ]
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|svgz)(\?.+)?$/,
@@ -65,16 +67,17 @@ module.exports = {
           priority: -1,
           reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
         },
-        styles: {			
-          name: 'styles',
-          test: /\.less|css$/,
-          chunks: 'all',	// merge all the css chunk to one file
-          enforce: true
-        }
+        //  是否将common下的 组件的css单独打包出来，开启下面配置
+        // styles: {
+        //   name: 'styles',
+        //   test: /\.less|css$/,
+        //   chunks: 'all',	// merge all the css chunk to one file
+        //   enforce: true
+        // }
       }
     },
     // 为每个入口提取出webpack runtime模块
-    runtimeChunk: true,
+    // runtimeChunk: true,
     // 等价于
     // runtimeChunk: {
     //   name: 'runtime'
@@ -95,7 +98,7 @@ module.exports = {
       // 使用 AssetsPlugin 打包生成的 json文件
       bundleName: bundleConfig.vendors.js,
       // 需要将dll 文件链接到html 中
-      // vendorsName: 'vendors.dll.js',
+      vendorsName: 'vendors.dll.js',
     }),
   ],
 

@@ -1,9 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Link, HashRouter, BrowserRouter, Route, NavLink, Switch } from 'react-router-dom';
-import PageA from './view/PageA';
-import PageB from './view/PageB';
-import PageC from './view/PageC';
+
+
+import PageA from 'lazy!./view/PageA';
+import PageB from 'lazy!./view/PageB';
+import PageC from 'lazy!./view/PageC';
+ 
+
 import styles from './app.css'
 const leftNav = () => {
   return (
@@ -24,11 +28,11 @@ class App extends React.Component {
           <div>
             <div>
               {leftNav()}
-              <hr/>
+              <hr />
             </div>
             <div>
               <div key={location.pathname}
-                style={{background: 'lightblue'}}>
+                style={{ background: 'lightblue'}}>
                 <Switch key={location.key} location={location}>
                   <Route exact path="/" component={PageA} />
                   <Route exact path="/pageA" component={PageA} />
@@ -44,5 +48,5 @@ class App extends React.Component {
   }
 };
 
-render(<App/>, document.getElementById('app'))
+render(<App />, document.getElementById('app'))
 

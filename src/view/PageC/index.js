@@ -14,7 +14,7 @@ export default class PageC extends React.Component {
   }
 
   render() {
-
+    
     return (
       <div  style={{position: "absolute"}}>
         <div className={styles.pageC}>pageC</div>

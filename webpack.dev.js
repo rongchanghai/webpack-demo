@@ -9,19 +9,17 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.common')
 
-module.exports =merge(commonConfig,{
-  // output: {
-  //   path: path.resolve(__dirname, 'dist'),
-  //   filename: '[name].[contenthash].js',
-  //   // publicPath: '/dist/'
-  // },
+
+module.exports = merge(commonConfig, {
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader']
-      },
+      // {
+      //   test: /\.(js|jsx)$/,
+      //   exclude: /node_modules/,
+      //   use: ['babel-loader',
+      //   'lazyload-loader'
+      //   ]
+      // },
       {
         test: /\.css$/,
         exclude: /node_modules/,
