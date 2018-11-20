@@ -1,0 +1,11 @@
+.boxA {
+    height: 500px;
+    width: 500px;
+    background: lightblue;
+}
+
+.boxB {
+    height: 400px;
+    width: 400px;
+    background: lightcoral;
+}
