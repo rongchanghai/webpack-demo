@@ -6,9 +6,9 @@ import { Link, HashRouter, BrowserRouter, Route, NavLink, Switch } from 'react-r
 import PageA from 'lazy!./view/PageA';
 import PageB from 'lazy!./view/PageB';
 import PageC from 'lazy!./view/PageC';
- 
 
 import styles from './app.css'
+
 const leftNav = () => {
   return (
     <nav>
@@ -31,8 +31,7 @@ class App extends React.Component {
               <hr />
             </div>
             <div>
-              <div key={location.pathname}
-                style={{ background: 'lightblue'}}>
+              <div key={location.pathname}>
                 <Switch key={location.key} location={location}>
                   <Route exact path="/" component={PageA} />
                   <Route exact path="/pageA" component={PageA} />
