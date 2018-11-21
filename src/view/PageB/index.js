@@ -1,28 +1,63 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import TodoApp from '$component/TodoApp';
 import css from './styles.css'
 import img from './15.jpg';
 import imgBig from './65.jpg'
 
+const theme = {
+  background: 'red',
+};
+const ThemeContext = createContext(theme);
 export default class PageB extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      com1: 'com11'
+      background: 'red'
     }
   }
 
   componentDidMount() {
   }
-
+  changeColor() {
+    if (this.state.background === 'red') {
+      this.setState({
+        background: 'green'
+      })
+    }
+  }
   render() {
 
     return (
       <div className={css.boxA}>
-        <div className={css.boxB}>
-          Abcd
-        </div>
+        <button onClick={this.changeColor}>A</button>
+        <ThemeContext.Provider value={this.state.background}>
+          <BoxB />
+        </ThemeContext.Provider>
       </div>
     )
   }
 }
+
+class BoxB extends React.Component {
+
+  render() {
+    return (
+      <div className={css.boxB}>
+        B
+        <BoxC></BoxC>
+      </div>
+    )
+  }
+}
+class BoxC extends React.Component {
+
+  render() {
+    return (
+      
+      <div className={css.boxC}>
+        C
+      </div>
+    )
+  }
+}
+
