@@ -1,26 +1,31 @@
 import React from 'react';
 import TodoApp from '$component/TodoApp';
-
+import MyContainer from './hoc'
+@MyContainer
 export default class PageA extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      com1:'com111'
-    }
+    // this.state = {
+    //   com1: 'com111'
+    // }
   }
 
   componentDidMount() {
   }
-  clickBtn = ()=>{
+  clickBtn = () => {
     console.log('click Btn');
   }
   render() {
     console.log('Aa');
+    console.log(this.state.list);
     return (
-      <div style={{position: "absolute"}}>
-        <div className="b">pageAA</div>
-        <button onClick={this.clickBtn}>click this</button>
-        <TodoApp/>
+      <div style={{ position: "absolute" }}>
+        <>
+          <div>A</div>
+          <div>A</div>
+          <div>A</div>
+          <div>A</div>
+        </>
       </div>
     )
   }

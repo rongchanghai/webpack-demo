@@ -18,10 +18,14 @@ export default class PageB extends React.Component {
 
   componentDidMount() {
   }
-  changeColor() {
+  changeColor = () => {
     if (this.state.background === 'red') {
       this.setState({
         background: 'green'
+      })
+    }else{
+      this.setState({
+        background:'red'
       })
     }
   }
@@ -53,9 +57,16 @@ class BoxC extends React.Component {
 
   render() {
     return (
-      
       <div className={css.boxC}>
-        C
+        <ThemeContext.Consumer>
+          {
+            (v) => {
+              console.log(v);
+              return <div style={{ color: v }}>this is Consumer
+              </div>
+            }
+          }
+        </ThemeContext.Consumer>
       </div>
     )
   }
